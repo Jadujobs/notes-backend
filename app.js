@@ -2,8 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const notesRoute = require("./routes/notes");
+const cors = require("cors");
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/notes", notesRoute);
 // /notes -> /notes (GET), /notes (POST)

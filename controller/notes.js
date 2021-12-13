@@ -2,14 +2,16 @@ const Note = require("../models/note");
 exports.getAllNotes = async (req, res) => {
   try {
     const notes = await Note.find();
-    res.send(notes);
+    res.json(notes);
   } catch (error) {
     console.log("Something went unexpected!", error.message);
-    res.send("Something went unexpected!");
+    res.json("Something went unexpected!");
   }
 };
 exports.postNote = async (req, res) => {
   const { title, description } = req.body;
+
+  console.log(req.body);
 
   try {
     const note = new Note({
@@ -19,12 +21,12 @@ exports.postNote = async (req, res) => {
 
     await note.save();
 
-    res.send("Note has been saved!");
+    res.json("Note has been saved!");
   } catch (error) {
     console.log("Something went unexpected!", error.message);
-    res.send("Something went unexpected!");
+    res.json("Something went unexpected!");
   }
-  //   res.send(req.body.title + "has been added a note");
+  //   res.json(req.body.title + "has been added a note");
 };
 exports.getNote = async (req, res) => {
   console.log(req.params.id);
@@ -32,21 +34,22 @@ exports.getNote = async (req, res) => {
   try {
     const note = await Note.findById(id);
     if (!note) {
-      return res.send("Note doesn't exist");
+      return res.json("Note doesn't exist");
     }
-    res.send(note);
+    res.json(note);
   } catch (error) {
     console.log("Something went unexpected!", error.message);
-    res.send("Something went unexpected!");
+    res.json("Something went unexpected!");
   }
 };
 exports.updateNote = async (req, res) => {
   const { id } = req.params;
   const { title, description } = req.body;
+  console.log(title, description);
   try {
     const note = await Note.findById(id);
     if (!note) {
-      return res.send("Note doesn't exist");
+      return res.json("Note doesn't exist");
     }
 
     note.title = title;
@@ -54,10 +57,10 @@ exports.updateNote = async (req, res) => {
 
     await note.save();
 
-    res.send("Note has been updated!");
+    res.json("Note has been updated!");
   } catch (error) {
     console.log("Something went unexpected!", error.message);
-    res.send("Something went unexpected!");
+    res.json("Something went unexpected!");
   }
 };
 exports.deleteNote = async (req, res) => {
@@ -66,11 +69,11 @@ exports.deleteNote = async (req, res) => {
   try {
     const note = await Note.findByIdAndDelete(id);
     if (!note) {
-      return res.send("Note doesn't exist");
+      return res.json("Note doesn't exist");
     }
-    res.send("Note has been deleted!");
+    res.json("Note has been deleted!");
   } catch (error) {
     console.log("Something went unexpected!", error.message);
-    res.send("Something went unexpected!");
+    res.json("Something went unexpected!");
   }
 };
