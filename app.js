@@ -15,10 +15,6 @@ app.get("/", (req, res) => {
 // /notes -> /notes (GET), /notes (POST)
 // /user -> /user/register , /user/login, /user/111
 
-// GET
-// POST
-// PUT
-// DELETE
 console.log(process.env);
 const connect = async () => {
   try {
