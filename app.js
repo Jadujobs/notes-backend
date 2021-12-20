@@ -4,10 +4,14 @@ const bodyParser = require("body-parser");
 const notesRoute = require("./routes/notes");
 const cors = require("cors");
 const app = express();
+require("dotenv").config();
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use("/notes", notesRoute);
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 // /notes -> /notes (GET), /notes (POST)
 // /user -> /user/register , /user/login, /user/111
 
@@ -15,10 +19,10 @@ app.use("/notes", notesRoute);
 // POST
 // PUT
 // DELETE
-
+console.log(process.env);
 const connect = async () => {
   try {
-    await mongoose.connect("mongodb://localhost:27017/notes");
+    await mongoose.connect(process.env.DATABASE);
     console.log("Database Connected!");
     app.listen(3009, console.log("Server started!..."));
   } catch (err) {
