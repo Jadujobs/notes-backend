@@ -8,10 +8,10 @@ require("dotenv").config();
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use("/notes", notesRoute);
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+app.use("/notes", notesRoute);
 // /notes -> /notes (GET), /notes (POST)
 // /user -> /user/register , /user/login, /user/111
 
